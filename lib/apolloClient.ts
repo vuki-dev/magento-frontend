@@ -1,8 +1,14 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+
+const httpLink = createHttpLink({
+  uri: 'https://magento.dev/graphql', 
+  credentials: 'include', 
+});
 
 const client = new ApolloClient({
-    uri: 'http://magento.dev/graphql',
-    cache: new InMemoryCache(),
-  });
-  
-  export default client;
+  link: httpLink,
+  cache: new InMemoryCache(),
+});
+
+export default client;
